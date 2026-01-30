@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Choice, Question
 
 
@@ -40,12 +40,15 @@ class DetailView(generic.DetailView):
         )
         return context
 
-class ResultsView(generic.DetailView):
+
+
+class ResultsView(LoginRequiredMixin, generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
     def get_queryset(self):
         return Question.objects.filter(pub_date__lte=timezone.now())
+
 
 @login_required
 def vote(request, question_id):
