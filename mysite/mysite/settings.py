@@ -28,6 +28,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# set the DEBUG to false so when website is published it wont show any stack traces, file paths, server settings, and environment variables.
 DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']

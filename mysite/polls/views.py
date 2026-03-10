@@ -45,11 +45,12 @@ class DetailView(generic.DetailView):
 class ResultsView(LoginRequiredMixin, generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
-
+    
+    #controls the access of unpublished polls to not show at the results site.
     def get_queryset(self):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
-
+#
 @login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
