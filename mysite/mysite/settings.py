@@ -18,26 +18,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-import os
-
-SECRET_KEY = os.getenv("SECRET_KEY")
-
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
+SECRET_KEY = 'django-insecure-&hiw@c^@i3p+l7_$=n2#nj5a*k&+6ld#70e&%8q%(t-=t4wpn4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# set the DEBUG to false so when website is published it wont show any stack traces, file paths, server settings, and environment variables.
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-LOGIN_URL = "/admin/login/"
-
-
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -62,8 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = "mysite.urls"   
-
+ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
     {
@@ -119,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Helsinki'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
