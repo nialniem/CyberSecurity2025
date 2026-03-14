@@ -15,7 +15,8 @@ def signup(request):
         username = request.POST["username"]
         password = request.POST["password"]
 
-        # FIX: validate password strength
+        # FIX: validate password strength. This uses Django’s built-in password validation system to checks
+        # the strength of the password and prevents users from creating accounts with weak or common passwords.
         try:
             validate_password(password)
         except ValidationError as e:
