@@ -86,6 +86,7 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+    # FIX: Only allow access to polls that have already been published
     def get_queryset(self):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
