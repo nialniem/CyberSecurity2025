@@ -4,6 +4,31 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Choice, Question
+from django.db import connection
+from django.http import HttpResponse
+
+def search(request):
+    query = request.GET.get("q", "")
+    # FLAW: vulnerable to SQL injection
+    # with connection.cursor() as cursor:
+    #     sql = "SELECT id, question_text, pub_date FROM polls_question WHERE question_text LIKE '%" + query + "%'"
+    #     cursor.execute(sql)
+    #     rows = cursor.fetchall()
+
+    # to fix the code above you can see the vulnerable code is in comment
+    # the fix uses ORM query system that prevents user input from being interpreted as SQL code.
+    rows = Question.objects.filter(
+        question_text__icontains=query
+    ).values_list("id", "question_text", "pub_date")
+
+    output = "<h1>Search results</h1>"
+    output += f"<p>Search term: {query}</p>"
+    output += "<ul>"
+    for row in rows:
+        output += f"<li>{row[1]}</li>"
+    output += "</ul>"
+
+    return HttpResponse(output)
 
 def get_queryset(self):
     """
