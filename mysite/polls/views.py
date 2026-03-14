@@ -7,6 +7,25 @@ from .models import Choice, Question
 from django.db import connection
 from django.http import HttpResponse
 
+from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+def signup(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+
+        # FIX: validate password strength
+        try:
+            validate_password(password)
+        except ValidationError as e:
+            return HttpResponse(" ".join(e.messages), status=400)
+
+        User.objects.create_user(username=username, password=password)
+        return HttpResponse("User created")
+
+    return render(request, "polls/signup.html")
+
 def search(request):
     query = request.GET.get("q", "")
     # FLAW: vulnerable to SQL injection
